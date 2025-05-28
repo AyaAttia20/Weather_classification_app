@@ -14,9 +14,8 @@ def load_lottieurl(url: str):
     return r.json()
 
 # Weather-themed Lottie (you can change the link if needed)
-lottie_url_weather = "https://lottie.host/6de02fa5-b693-4e29-8b8b-8cb9e4bc2164/Qf26qLruod.json"  # Sample weather animation
+lottie_url_weather = "https://assets5.lottiefiles.com/packages/lf20_example.json"  # Replace with your chosen animation URL
 lottie_weather = load_lottieurl(lottie_url_weather)
-
 # Show welcome animation for 5 seconds only if loaded successfully
 if lottie_weather:
     with st.container():
