@@ -26,10 +26,6 @@ lottie_download = load_lottieurl(lottie_url_download)
 
 st_lottie(lottie_hello, key="hello")
 
-if st.button("Download"):
-    with st_lottie_spinner(lottie_download, key="download"):
-        time.sleep(5)
-    st.balloons()
 
 classes_names = ['DEW', 'Fogs Mog', 'Frost', 'Glaze', 'Hail', 'Lightning', 'Rain', 'Rainbow', 'Rime', 'Sand Storm', 'Snow']
 
@@ -71,3 +67,9 @@ else:
     # Show result
     st.markdown(f"### Prediction: `{predicted_class}`")
     st.markdown(f"### Confidence: `{confidence:.2f}%`")
+
+
+if st.button("Predict"):
+    with st_lottie_spinner(lottie_download, key="download"):
+        time.sleep(5)
+    st.snow()
