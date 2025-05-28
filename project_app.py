@@ -2,33 +2,35 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 from PIL import Image
+
 import time
 import requests
-from streamlit_lottie import st_lottie, st_lottie_spinner
 
-# Load Lottie animation from URL
+import streamlit as st
+from streamlit_lottie import st_lottie
+from streamlit_lottie import st_lottie_spinner
+
+
 def load_lottieurl(url: str):
     r = requests.get(url)
     if r.status_code != 200:
         return None
     return r.json()
 
-# Weather-themed Lottie (you can change the link if needed)
-lottie_url_weather = "https://assets4.lottiefiles.com/packages/lf20_qmfs6v.json"  # weather animation
+
+lottie_url_hello = "https://assets5.lottiefiles.com/packages/lf20_V9t630.json"
 lottie_url_download = "https://assets4.lottiefiles.com/private_files/lf30_t26law.json"
-lottie_weather = load_lottieurl(lottie_url_weather)
+lottie_hello = load_lottieurl(lottie_url_hello)
 lottie_download = load_lottieurl(lottie_url_download)
 
-# Show welcome animation for 5 seconds
-with st.container():
-    st_lottie(lottie_weather, key="hello", height=300)
-    st.markdown("<h3 style='text-align: center;'>Hello from the Weather Classification APP ☁️</h3>", unsafe_allow_html=True)
-    time.sleep(5)
 
-# Clear the animation
-st.empty()
+st_lottie(lottie_hello, key="hello")
 
-# Main App
+if st.button("Download"):
+    with st_lottie_spinner(lottie_download, key="download"):
+        time.sleep(5)
+    st.balloons()
+
 classes_names = ['DEW', 'Fogs Mog', 'Frost', 'Glaze', 'Hail', 'Lightning', 'Rain', 'Rainbow', 'Rime', 'Sand Storm', 'Snow']
 
 # Load model
@@ -40,11 +42,11 @@ def load_model():
 model = load_model()
 
 # Sidebar
-st.sidebar.title("About 🌧🤗")
+st.sidebar.title("About 🌧️🤗")
 st.sidebar.info("This app classifies weather conditions based on images.")
 
 # Title and description
-st.title("Weather Classifier 🌤🌧")
+st.title("Weather Classifier 🌤️🌧️")
 st.markdown("Upload an image and see if the AI can predict the weather condition correctly.")
 
 # File uploader
@@ -67,11 +69,5 @@ else:
     confidence = np.max(predictions) * 100
 
     # Show result
-    st.markdown(f"### Prediction: {predicted_class}")
-    st.markdown(f"### Confidence: {confidence:.2f}%")
-
-# Download animation
-if st.button("Download"):
-    with st_lottie_spinner(lottie_download, key="download"):
-        time.sleep(5)
-    st.balloons()
+    st.markdown(f"### Prediction: `{predicted_class}`")
+    st.markdown(f"### Confidence: `{confidence:.2f}%`")
