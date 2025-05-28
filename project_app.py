@@ -14,19 +14,18 @@ def load_lottieurl(url: str):
     return r.json()
 
 # Weather-themed Lottie (you can change the link if needed)
-lottie_url_weather = "https://assets4.lottiefiles.com/packages/lf20_qmfs6v.json"  # weather animation
-lottie_url_download = "https://assets4.lottiefiles.com/private_files/lf30_t26law.json"
+lottie_url_weather = "https://lottie.host/6de02fa5-b693-4e29-8b8b-8cb9e4bc2164/Qf26qLruod.json"  # Sample weather animation
 lottie_weather = load_lottieurl(lottie_url_weather)
-lottie_download = load_lottieurl(lottie_url_download)
 
-# Show welcome animation for 5 seconds
-with st.container():
-    st_lottie(lottie_weather, key="Hello From Weather App", height=300)
-    st.markdown("<h3 style='text-align: center;'>Hello from the Weather Classification APP ☁️</h3>", unsafe_allow_html=True)
-    time.sleep(5)
-
-# Clear the animation
-st.empty()
+# Show welcome animation for 5 seconds only if loaded successfully
+if lottie_weather:
+    with st.container():
+        st_lottie(lottie_weather, key="hello", height=300)
+        st.markdown("<h3 style='text-align: center;'>Hello from the Weather Classification APP ☁️</h3>", unsafe_allow_html=True)
+        time.sleep(5)
+    st.empty()  # Clear the animation
+else:
+    st.warning("⚠️ Could not load the welcome animation. Please check your internet connection or the animation URL.")
 
 # Main App
 classes_names = ['DEW', 'Fogs Mog', 'Frost', 'Glaze', 'Hail', 'Lightning', 'Rain', 'Rainbow', 'Rime', 'Sand Storm', 'Snow']
